@@ -1,0 +1,14 @@
+/**
+ * Styles for tab panels
+ */
+html body {
+  [data-tab-panel], .panel.full-height[data-tab-panel] {
+    display: none;
+    &.active {
+      display: block;
+      &.panel {display: flex;}
+    }
+  }
+}
+
+.tab-item {cursor: pointer}

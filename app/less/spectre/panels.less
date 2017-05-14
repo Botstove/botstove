@@ -1,0 +1,25 @@
+/**
+ * Adds:
+ *  - Fullheight panels
+ *  - Plain panels (no borders)
+ */
+html {
+  .panel.full-height {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .panel-body {
+      flex: 3;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .plain.panel {
+    border: none;
+
+    .panel-header {padding: 0}
+    .panel-body {padding: 0}
+  }
+}
