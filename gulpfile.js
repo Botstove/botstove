@@ -41,10 +41,9 @@ gulp.task('slim', function () {
   return gulp.src([
       'app/slim/header.slim',
       'app/slim/sidebar/header.slim',
-      'app/slim/sidebar/history.slim',
+      'app/slim/sidebar/bot/actions.slim',
       'app/slim/sidebar/footer.slim',
       'app/slim/main-wrap.slim',
-      'app/slim/components/requester.slim',
       'app/slim/templates.slim',
       'app/slim/footer.slim',
     ])
