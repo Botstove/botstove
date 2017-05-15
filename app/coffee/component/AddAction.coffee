@@ -44,7 +44,12 @@ App.define 'App.component.AddAction',
 
     _.each inputs, (input) ->
       if input.type == 'group'
-        return me.generateInput input.fields, $('<fieldset/>').appendTo(group)
+        if (input.repeater) then input.fields.push(
+          type: 'repeater'
+          text: 'Add another'
+        )
+        me.generateInput input.fields, $('<fieldset/>').appendTo(group)
+        return
 
       parent = $('<div class="form-group" />').appendTo group
       guid = App.Guid.raw()
@@ -66,4 +71,6 @@ App.define 'App.component.AddAction',
         when 'checkbox'
           $('<label id="' + guid + '" class="form-switch"><input type="checkbox" id="' + guid + '"><i class="form-icon"></i> ' + input.label + '</label>').appendTo(parent)
 
+        when 'repeater'
+          $('<button class="btn btn-primary btn-sm float-right repeater">Add another</button>').appendTo group
     return
