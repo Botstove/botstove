@@ -2,10 +2,7 @@ App.define 'App.component.Modal',
   refs:
     view: '.modal'
     closeButton:
-      ref: '> button.btn-clear'
-      click: 'closeModal'
-    mask:
-      ref: '> .modal-overlay'
+      ref: '> .modal-close'
       click: 'closeModal'
 
   ###*
