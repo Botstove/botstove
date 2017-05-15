@@ -140,3 +140,10 @@ App =
       str.replace /\|/g, '.'
     slim: (str) ->
       str.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+
+  Guid:
+    ###*
+     * Returns a GUID
+    ###
+    raw: () ->
+      return Guid.raw()

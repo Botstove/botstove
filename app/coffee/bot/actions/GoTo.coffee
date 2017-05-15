@@ -13,7 +13,7 @@ Bot.define 'Bot.action.Goto',
           label: 'URL'
         }
         {
-          type: 'check'
+          type: 'checkbox'
           label: 'New Tab?'
         }
       ]

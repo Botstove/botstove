@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Botstove/botstove#readme",
   "devDependencies": {
+    "guid": "0.0.12",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.2.0",
     "gulp-coffee": "^2.3.4",
