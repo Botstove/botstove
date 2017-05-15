@@ -45,6 +45,7 @@ gulp.task('slim', function () {
       'app/slim/sidebar/footer.slim',
       'app/slim/bot/swimlanes.slim',
       'app/slim/templates.slim',
+      'app/slim/modals.slim',
       'app/slim/footer.slim',
     ])
     .pipe(concat('index.html'))

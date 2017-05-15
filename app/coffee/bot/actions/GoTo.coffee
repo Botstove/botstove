@@ -3,7 +3,7 @@ Bot.define 'Bot.action.Goto',
     title: 'Go To'
     icon: 'arrow-right'
 
-  input: [
+  inputs: [
     {
       type: 'group'
       repeater: true
@@ -19,6 +19,3 @@ Bot.define 'Bot.action.Goto',
       ]
     }
   ]
-
-  run:
-    console.log('hello world!')

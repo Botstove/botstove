@@ -28,6 +28,7 @@ Bot =
     ###
     refs: (className) ->
       controller = _.get window, className
+      controller.className = className
       view = if controller.refs then controller.refs.view else ''
       view = if _.isString(view) then {ref: view} else view
 
@@ -53,15 +54,17 @@ Bot =
 
   ###*
    * Creates the draggable UI
+   * @param {STR} className The calling classname
   ###
   createUI: (className) ->
     controller = _.get window, className
 
     if controller.action
       template = _.template(App.Decode.slim($('#template-bot-action').html())) controller.action
-      $('#bot-actions').append template
-      $('.btn-bot-action', '#bot-actions').click () ->
-        Bot.addAction controller
+
+      $ template
+      .appendTo '#bot-actions'
+      .data 'action', className
 
     return
 
@@ -71,9 +74,3 @@ Bot =
   Decode:
     slim: (str) ->
       str.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-
-  ###*
-   * Adds an action to the users bot
-  ###
-  addAction: (controller) ->
-    $('#bot-swimlane-actions').append(_.template(App.Decode.slim($('#template-swimlane-action').html())) controller.action)
