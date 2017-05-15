@@ -74,6 +74,9 @@ App.define 'App.component.AddAction',
           label = input.label or 'Add another'
           $('<button class="btn btn-primary btn-sm float-right repeater">' + label + '</button>')
           .appendTo group
+
+          $('<button class="btn btn btn-sm btn-error float-right repeater-deleter push-right">Remove</button>')
+          .appendTo group
     return
 
   ###*
