@@ -7,7 +7,27 @@
   th {width: 33.333333%}
 
   th, td {
+    padding: @layout-padding;
     border-right: .1rem solid @background-secondary-color;
+    vertical-align: top;
     &:last-child {border-right: none}
+  }
+}
+
+@media screen and (max-width: @size-md) {
+  #bot-swimlanes {
+    tr, td, th {
+      display: block;
+    }
+    th {
+      text-align: left;
+      width: 100%;
+    }
+    td, th {
+      border-bottom: .1rem dashed @background-secondary-color;
+      border-right: none;
+      &:last-child {border-bottom: none}
+    }
+    tr {border-bottom: .1rem solid @background-secondary-color}
   }
 }
