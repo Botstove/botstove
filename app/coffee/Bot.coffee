@@ -60,15 +60,20 @@ Bot =
     if controller.action
       template = _.template(App.Decode.slim($('#template-bot-action').html())) controller.action
       $('#bot-actions').append template
+      $('.btn-bot-action', '#bot-actions').click () ->
+        Bot.addAction controller
 
     return
 
-  Encode:
-    className: (str) ->
-      str.replace /\./g, '|'
-
+  ###*
+   * Various decoder methods
+  ###
   Decode:
-    className: (str) ->
-      str.replace /\|/g, '.'
     slim: (str) ->
       str.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+
+  ###*
+   * Adds an action to the users bot
+  ###
+  addAction: (controller) ->
+    $('#bot-swimlane-actions').append(_.template(App.Decode.slim($('#template-swimlane-action').html())) controller.action)

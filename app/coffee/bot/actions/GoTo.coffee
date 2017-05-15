@@ -1,6 +1,7 @@
-Bot.define 'action.Goto',
+Bot.define 'Bot.action.Goto',
   action:
     title: 'Go To'
+    icon: 'arrow-right'
 
   input: [
     {
@@ -18,3 +19,6 @@ Bot.define 'action.Goto',
       ]
     }
   ]
+
+  run:
+    console.log('hello world!')

@@ -43,7 +43,7 @@ gulp.task('slim', function () {
       'app/slim/sidebar/header.slim',
       'app/slim/sidebar/bot/actions.slim',
       'app/slim/sidebar/footer.slim',
-      'app/slim/main-wrap.slim',
+      'app/slim/bot/swimlanes.slim',
       'app/slim/templates.slim',
       'app/slim/footer.slim',
     ])
