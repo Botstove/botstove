@@ -1,6 +1,7 @@
 Bot.define 'Bot.action.Goto',
   action:
     title: 'Go To'
+    description: 'Go to URL, then...'
     icon: 'arrow-right'
 
   inputs: [

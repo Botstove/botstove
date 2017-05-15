@@ -71,9 +71,8 @@ App.define 'App.component.AddAction',
           $('<label id="' + guid + '" class="form-switch"><input type="checkbox" id="' + guid + '"><i class="form-icon"></i> ' + input.label + '</label>').appendTo(parent)
 
         when 'repeater'
-          input.label = input.label or 'Add another'
-
-          $('<button class="btn btn-primary btn-sm float-right repeater">' + input.label + '</button>')
+          label = input.label or 'Add another'
+          $('<button class="btn btn-primary btn-sm float-right repeater">' + label + '</button>')
           .appendTo group
     return
 
