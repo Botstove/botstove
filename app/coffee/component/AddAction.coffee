@@ -9,6 +9,9 @@ App.define 'App.component.AddAction',
       click: 'addAction'
     form: '#modal-bot-inputs .modal-body .content'
     modal: '#modal-bot-inputs'
+    repeater:
+      ref: '.repeater'
+      click: 'repeatGroup'
 
   ###*
    * Adds an action to the users bot
@@ -44,10 +47,6 @@ App.define 'App.component.AddAction',
 
     _.each inputs, (input) ->
       if input.type == 'group'
-        if (input.repeater) then input.fields.push(
-          type: 'repeater'
-          text: 'Add another'
-        )
         me.generateInput input.fields, $('<fieldset/>').appendTo(group)
         return
 
@@ -72,5 +71,16 @@ App.define 'App.component.AddAction',
           $('<label id="' + guid + '" class="form-switch"><input type="checkbox" id="' + guid + '"><i class="form-icon"></i> ' + input.label + '</label>').appendTo(parent)
 
         when 'repeater'
-          $('<button class="btn btn-primary btn-sm float-right repeater">Add another</button>').appendTo group
+          input.label = input.label or 'Add another'
+
+          $('<button class="btn btn-primary btn-sm float-right repeater">' + input.label + '</button>')
+          .appendTo group
     return
+
+  ###*
+   * Repeats the group of inputs
+  ###
+  repeatGroup: (button) ->
+    $button = $(button)
+    $fieldset = $button.closest('fieldset')
+    $fieldset.clone().insertAfter($fieldset)

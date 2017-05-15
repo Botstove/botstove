@@ -6,7 +6,6 @@ Bot.define 'Bot.action.Goto',
   inputs: [
     {
       type: 'group'
-      repeater: true
       fields: [
         {
           type: 'text'
@@ -15,6 +14,9 @@ Bot.define 'Bot.action.Goto',
         {
           type: 'checkbox'
           label: 'New Tab?'
+        }
+        {
+          type: 'repeater'
         }
       ]
     }
