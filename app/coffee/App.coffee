@@ -125,7 +125,6 @@ App =
       macros = controller.macros
 
       _.each macros, (action, macro) ->
-        console.log controller, action
         Mousetrap.bind macro, _.bind(controller[action], controller)
 
       return

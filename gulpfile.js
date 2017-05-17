@@ -64,15 +64,26 @@ gulp.task('watch', function () {
 });
 
 /**
- * Move vendor files
+ * Move vendor scripts
  */
-gulp.task('vendor', function () {
+gulp.task('vendor-scripts', function () {
   return gulp.src([
       'node_modules/guid/guid.js',
-      'node_modules/mousetrap/mousetrap.js'
+      'node_modules/mousetrap/mousetrap.js',
+      'node_modules/dragula/dist/dragula.js'
     ])
     .pipe(uglify())
-    .pipe(gulp.dest('public/js/vendor'));
+    .pipe(gulp.dest('public/js/vendor'))
+});
+
+/**
+ * Move vendor styles
+ */
+gulp.task('vendor-styles', function () {
+  return gulp.src([
+      'node_modules/dragula/dist/dragula.min.css'
+    ])
+    .pipe(gulp.dest('public/css/vendor'));
 });
 
 /**
@@ -97,5 +108,5 @@ gulp.task('serve', function () {
 /**
  * Command Line Tasks
  */
-gulp.task('default', ['vendor', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
-gulp.task('build', ['vendor', 'assets', 'less', 'scripts', 'slim']);
+gulp.task('default', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
+gulp.task('build', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim']);

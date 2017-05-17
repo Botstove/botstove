@@ -18,7 +18,7 @@ App.define 'App.component.AddAction',
    * Adds an action to the users bot
    * @param {ELM} button The calling button
   ###
-  addAction: () ->
+  addAction: (button) ->
     controller = _.get window, $(button).data('action')
 
     $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
