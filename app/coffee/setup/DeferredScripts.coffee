@@ -1,7 +1,7 @@
 ###*
  * Simple class for deferring styles
 ###
-App.define 'App.setup.Styles',
+App.define 'App.setup.DeferredScripts',
   refs:
     view: 'head'
 

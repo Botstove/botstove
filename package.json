@@ -29,6 +29,7 @@
     "gulp-uglify": "^2.1.2"
   },
   "dependencies": {
+    "mousetrap": "^1.6.1",
     "spectre.css": "^0.2.14"
   }
 }

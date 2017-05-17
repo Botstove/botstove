@@ -14,6 +14,7 @@ App =
     @setup.listeners className
     @setup.refs className
     @setup.templates className
+    @setup.macros className
     controller = _.get window, className
 
     setTimeout ->
@@ -115,6 +116,20 @@ App =
 
       return
 
+    ###*
+     * Keyboard Macros
+     * @param  {STR} className The classname to check
+    ###
+    macros: (className) ->
+      controller = _.get window, className
+      macros = controller.macros
+
+      _.each macros, (action, macro) ->
+        console.log controller, action
+        Mousetrap.bind macro, _.bind(controller[action], controller)
+
+      return
+
   ###*
    * Triggers an event, passing along any data
    * @param  {STR} event The event name to trigger
@@ -131,6 +146,9 @@ App =
 
     return result
 
+  ###*
+   * @FIXME These need to be moved into classes
+  ###
   Encode:
     className: (str) ->
       str.replace /\./g, '|'

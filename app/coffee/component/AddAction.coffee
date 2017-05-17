@@ -2,6 +2,9 @@
  * Controls the "Add Action" panel
 ###
 App.define 'App.component.AddAction',
+  macros:
+    'a': 'showSelector'
+
   refs:
     view: '#bot-actions'
     button:
@@ -9,18 +12,21 @@ App.define 'App.component.AddAction',
       click: 'addAction'
     form: '#modal-bot-inputs .modal-body .content'
     modal: '#modal-bot-inputs'
+    popoverButton: '#popover-add-action > button'
 
   ###*
    * Adds an action to the users bot
    * @param {ELM} button The calling button
   ###
-  addAction: (button) ->
+  addAction: () ->
     controller = _.get window, $(button).data('action')
 
     $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
     .appendTo('#bot-swimlane-actions')
     .find '.bot-swimlane-input'
     .click _.bind(@generateModal, this, controller)
+
+    return
 
   ###*
    * Generates the modal based on whats in controller.action
@@ -77,3 +83,6 @@ App.define 'App.component.AddAction',
           $('<button class="btn btn btn-sm btn-error float-right repeater-deleter push-right">Remove</button>')
           .appendTo group
     return
+
+  showSelector: () ->
+    @getPopoverButton().focus()
