@@ -5,6 +5,9 @@ App.define 'App.component.modal.ActionInputs',
   refs:
     view: '#modal-bot-inputs'
     form: '> .modal-body .content'
+    checkboxes:
+      ref: '> [type=checkbox]'
+      change: 'setCheckboxValue'
     remove:
       ref: '.repeater-deleter'
       click: 'removeGroup'
@@ -52,3 +55,11 @@ App.define 'App.component.modal.ActionInputs',
         values[key].push $(this).val()
 
     return values
+
+  ###*
+   * Sets the checkbox value when clicked
+  ###
+  setCheckboxValue: (checkbox) ->
+    $checkbox = $(checkbox)
+    value = if $checkbox.is ':checked' then $checkbox.data 'on-value' else $checkbox.data 'off-value'
+    $(checkbox).val value

@@ -77,7 +77,9 @@ App.define 'App.component.AddAction',
           ).appendTo parent
 
         when 'checkbox'
-          $("<label id=#{guid} class=form-switch><input name=#{input.name} type=checkbox id=#{guid}><i class=form-icon></i> #{input.label}</label>")
+          onVal = if input.onValue then input.onValue else 1
+          offVal = if input.offValue then input.offValue else 0
+          $("<label id=#{guid} class=form-switch><input data-on-value='#{onVal}' data-off-value='#{offVal}' name=#{input.name} type=checkbox id=#{guid} value=#{offVal}><i class=form-icon></i> #{input.label}</label>")
           .appendTo parent
 
         when 'repeater'
