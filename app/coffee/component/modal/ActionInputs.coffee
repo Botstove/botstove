@@ -31,4 +31,4 @@ App.define 'App.component.modal.ActionInputs',
    * Saves the action and adds it to the actions array in local/remote
   ###
   save: () ->
-    console.log('Saving')
+    @getSubmit().addClass 'loading'

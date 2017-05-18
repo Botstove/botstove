@@ -26,8 +26,6 @@ App.define 'App.component.AddAction',
     .find '.bot-swimlane-input'
     .click _.bind(@generateModal, this, controller)
 
-    return
-
   ###*
    * Generates the modal based on whats in controller.action
    * @param  {STR} controller The calling controller
@@ -36,8 +34,6 @@ App.define 'App.component.AddAction',
     @getModal().addClass 'active'
     @getForm().html ''
     @generateInput controller.inputs, @getForm()
-
-    return
 
   ###*
    * Loops through and generates each input element
@@ -53,7 +49,6 @@ App.define 'App.component.AddAction',
         $fieldset = $('<fieldset />')
         me.generateInput input.fields, $fieldset.appendTo(group)
         $fieldset.wrap('<div class="repeater-group" />')
-        return
 
       parent = $('<div class="form-group" />').appendTo group
       guid = App.Guid.raw()
@@ -82,7 +77,6 @@ App.define 'App.component.AddAction',
 
           $('<button class="btn btn btn-sm btn-error float-right repeater-deleter push-right">Remove</button>')
           .appendTo group
-    return
 
   showSelector: () ->
     @getPopoverButton().focus()

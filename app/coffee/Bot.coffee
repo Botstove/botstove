@@ -13,9 +13,6 @@ Bot =
 
     setTimeout ->
       controller.init and controller.init()
-      return
-
-    return
 
   setup:
     ###*
@@ -49,8 +46,6 @@ Bot =
               args = _.toArray(arguments)
               args.unshift this
               controller[callback].apply controller, args
-          return
-        return
 
   ###*
    * Creates the draggable UI
@@ -65,8 +60,6 @@ Bot =
       $ template
       .appendTo '#bot-actions'
       .data 'action', className
-
-    return
 
   ###*
    * Various decoder methods
