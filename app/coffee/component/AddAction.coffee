@@ -3,7 +3,7 @@
 ###
 App.define 'App.component.AddAction',
   macros:
-    'a': 'showSelector'
+    showSelector: 'a'
 
   refs:
     view: '#bot-actions'

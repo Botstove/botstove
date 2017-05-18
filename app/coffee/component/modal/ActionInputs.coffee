@@ -41,8 +41,8 @@ App.define 'App.component.modal.ActionInputs',
   ###
   save: () ->
     @getSubmit().addClass 'loading'
-    console.log @getValues()
     @getSubmit().removeClass 'loading'
+    @getView().removeClass 'active'
 
   ###*
    * Gets the values using the .inputs

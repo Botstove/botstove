@@ -13,8 +13,8 @@
     padding: @layout-padding;
     border-right: .1rem solid @background-secondary-color;
     vertical-align: top;
-    &:last-child {border-right: none}
     width: 33%;
+    &:last-child {border-right: none}
   }
 
   tr {
@@ -23,8 +23,17 @@
   }
 
   tbody {
-    td {border-bottom: 1px solid @background-secondary-color}
-    tr:nth-child(even) {background: @background-secondary-color}
+    td {
+      border-bottom: 1px solid @background-secondary-color;
+      &:hover {
+        background: darken(#fff, 3%);
+        cursor: pointer;
+      }
+    }
+    tr:nth-child(even) {
+      background: @background-secondary-color;
+      td:hover {background: darken(@background-secondary-color, 3%);}
+    }
   }
 
   tfoot {background: @background-secondary-color;}
@@ -34,6 +43,17 @@
 
 .repeater-group fieldset:only-child button.repeater-deleter {display: none}
 fieldset.gu-mirror {background: #fff}
+
+.btn-bot-action {
+  height: 50px;
+  width: 80px;
+  margin: @layout-padding;
+
+  i {
+    display: block;
+    margin-bottom: @layout-padding / 2;
+  }
+}
 
 @media screen and (max-width: @size-md) {
   #bot-swimlanes {
@@ -48,16 +68,5 @@ fieldset.gu-mirror {background: #fff}
       &:last-child {border-bottom: none}
     }
     tr {border-bottom: .1rem solid @background-secondary-color}
-  }
-}
-
-.btn-bot-action {
-  height: 50px;
-  width: 80px;
-  margin: @layout-padding;
-
-  i {
-    display: block;
-    margin-bottom: @layout-padding / 2;
   }
 }
