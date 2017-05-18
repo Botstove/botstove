@@ -55,6 +55,13 @@ fieldset.gu-mirror {background: #fff}
   }
 }
 
+.bot-swimlane-input {
+  .empty {
+    display: none;
+    &:only-child {display: block}
+  }
+}
+
 @media screen and (max-width: @size-md) {
   #bot-swimlanes {
     tr, td, th {

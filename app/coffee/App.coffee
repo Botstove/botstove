@@ -156,3 +156,5 @@ App =
   ###
   log: () ->
     if App.Config.hasParam('debug') then console.log arguments
+  table: () ->
+    if App.Config.hasParam('debug') then console.table arguments

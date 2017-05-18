@@ -4,10 +4,11 @@
 App.define 'App.component.modal.ActionInputs',
   refs:
     view: '#modal-bot-inputs'
-    form: '> .modal-body .content'
+    activeLane: '#bot-swimlane-actions .active.bot-swimlane-input'
     checkboxes:
       ref: '> [type=checkbox]'
       change: 'setCheckboxValue'
+    form: '> .modal-body .content'
     remove:
       ref: '.repeater-deleter'
       click: 'removeGroup'
@@ -27,8 +28,8 @@ App.define 'App.component.modal.ActionInputs',
    * Repeats the group of inputs
   ###
   repeatGroup: (button) ->
-    $fieldset = $(button).closest('fieldset')
-    $fieldset.clone().insertAfter($fieldset)
+    $fieldset = $(button).closest 'fieldset'
+    $fieldset.clone().insertAfter $fieldset
 
   ###*
    * Removes the repeater group
@@ -40,6 +41,15 @@ App.define 'App.component.modal.ActionInputs',
    * Saves the action and adds it to the actions array in local/remote
   ###
   save: () ->
+    $pre = @getActiveLane().children('pre')
+    jsonString = JSON.stringify(@getValues(), null, 2)
+    App.table 'Saving action inputs', @getForm().data('values')
+
+    if $pre.length
+      $pre.text jsonString
+    else
+      @getActiveLane().prepend "<pre class='bot-swimlane-input-values'>#{jsonString}</pre>"
+
     @getSubmit().addClass 'loading'
     @getSubmit().removeClass 'loading'
     @getView().removeClass 'active'
@@ -49,7 +59,7 @@ App.define 'App.component.modal.ActionInputs',
   ###
   getValues: () ->
     me = this
-    values = @getForm().data('values')
+    values = @getForm().data 'values'
 
     _.each values, (value, key) ->
       values[key] = []

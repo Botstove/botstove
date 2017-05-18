@@ -25,6 +25,7 @@ App.define 'App.component.AddAction',
     $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
     .appendTo('#bot-swimlane-actions')
     .find '.bot-swimlane-input'
+    .addClass 'active'
     .click _.bind(@generateModal, this, controller)
 
   ###*
