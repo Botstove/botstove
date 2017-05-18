@@ -68,9 +68,7 @@ gulp.task('watch', function () {
  */
 gulp.task('vendor-scripts', function () {
   return gulp.src([
-      'node_modules/guid/guid.js',
-      'node_modules/mousetrap/mousetrap.js',
-      'node_modules/dragula/dist/dragula.js'
+      'node_modules/guid/guid.js'
     ])
     .pipe(uglify())
     .pipe(gulp.dest('public/js/vendor'))

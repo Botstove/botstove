@@ -10,6 +10,9 @@ App.define 'App.component.modal.ActionInputs',
     repeater:
       ref: '.repeater'
       click: 'repeatGroup'
+    submit:
+      ref: '> .modal-footer .btn-primary'
+      click: 'save'
 
   ###*
    * Repeats the group of inputs
@@ -23,3 +26,9 @@ App.define 'App.component.modal.ActionInputs',
   ###
   removeGroup: (button) ->
     $(button).closest('fieldset').remove()
+
+  ###*
+   * Saves the action and adds it to the actions array in local/remote
+  ###
+  save: () ->
+    console.log('Saving')
