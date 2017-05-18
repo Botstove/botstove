@@ -42,6 +42,7 @@ App.define 'App.component.modal.ActionInputs',
   save: () ->
     @getSubmit().addClass 'loading'
     console.log @getValues()
+    @getSubmit().removeClass 'loading'
 
   ###*
    * Gets the values using the .inputs
@@ -51,10 +52,11 @@ App.define 'App.component.modal.ActionInputs',
     values = @getForm().data('values')
 
     _.each values, (value, key) ->
+      values[key] = []
       me.getForm().find("[name=#{key}]").each (el) ->
         values[key].push $(this).val()
 
-    return values
+    values
 
   ###*
    * Sets the checkbox value when clicked

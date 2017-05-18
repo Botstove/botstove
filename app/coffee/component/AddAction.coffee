@@ -11,6 +11,7 @@ App.define 'App.component.AddAction',
       ref: '> .btn-bot-action'
       click: 'addAction'
     form: '#modal-bot-inputs .modal-body .content'
+    formSubmit: '#modal-bot-inputs .modal-footer .btn-primary'
     modal: '#modal-bot-inputs'
     popoverButton: '#popover-add-action > button'
 
@@ -35,6 +36,7 @@ App.define 'App.component.AddAction',
     @getForm()
       .data 'values', {}
       .html ''
+    @getFormSubmit().removeClass 'loading'
     @generateInput controller.inputs, @getForm()
 
   ###*
