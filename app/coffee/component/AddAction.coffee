@@ -7,6 +7,7 @@ App.define 'App.component.AddAction',
 
   refs:
     view: '#bot-actions'
+    activeLanes: '#bot-swimlane-actions .active.bot-swimlane-input'
     button:
       ref: '> .btn-bot-action'
       click: 'addAction'
@@ -22,17 +23,21 @@ App.define 'App.component.AddAction',
   addAction: (button) ->
     controller = _.get window, $(button).data('action')
 
-    $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
+    $button = $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
     .appendTo('#bot-swimlane-actions')
     .find '.bot-swimlane-input'
-    .addClass 'active'
-    .click _.bind(@generateModal, this, controller)
+
+    $button.click _.bind(@generateModal, this, controller, $button)
 
   ###*
    * Generates the modal based on whats in controller.action
    * @param  {STR} controller The calling controller
+   * @param  {$EL} $button    The calling button
   ###
-  generateModal: (controller) ->
+  generateModal: (controller, $button) ->
+    @getActiveLanes().removeClass 'active'
+    $button.addClass 'active'
+
     @getModal().addClass 'active'
     @getForm()
       .data 'values', {}
