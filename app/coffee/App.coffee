@@ -14,15 +14,13 @@ App =
     @setup.listeners className
     @setup.refs className
     @setup.templates className
+    @setup.macros className
     controller = _.get window, className
 
     setTimeout ->
       controller and App.setup.extends(className, config)
       App.setup.stores className
       controller.init and controller.init()
-      return
-
-    return
 
   setup:
     ###*
@@ -34,8 +32,6 @@ App =
       if controller.listen
         _.each controller.listen, (event) ->
           _.set App.listen, event + '.' + App.Encode.className(className), true
-          return
-      return
 
     ###*
      * Applies methods for extending
@@ -75,8 +71,6 @@ App =
               args = _.toArray(arguments)
               args.unshift this
               controller[callback].apply controller, args
-          return
-        return
 
     ###*
      * Sets up the templates
@@ -90,9 +84,6 @@ App =
 
         controller[getter] = (data) ->
           _.template(App.Decode.slim($(template).html())) data
-
-        return
-      return
 
     ###*
      * Sets up stores, autoloading them and firing events
@@ -113,7 +104,16 @@ App =
         if store.event
           App.trigger store.event, cache, true
 
-      return
+    ###*
+     * Keyboard Macros
+     * @param  {STR} className The classname to check
+    ###
+    macros: (className) ->
+      controller = _.get window, className
+      macros = controller.macros
+
+      _.each macros, (action, macro) ->
+        Mousetrap.bind macro, _.bind(controller[action], controller)
 
   ###*
    * Triggers an event, passing along any data
@@ -129,8 +129,11 @@ App =
       controller = _.get(window, App.Decode.className(className))
       result = controller[event].apply controller, args
 
-    return result
+    result
 
+  ###*
+   * @FIXME These need to be moved into classes
+  ###
   Encode:
     className: (str) ->
       str.replace /\./g, '|'
@@ -140,3 +143,16 @@ App =
       str.replace /\|/g, '.'
     slim: (str) ->
       str.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+
+  Guid:
+    ###*
+     * Returns a GUID
+    ###
+    raw: () ->
+      Guid.raw()
+
+  ###*
+   * Console logger, used when ?debug flag is used
+  ###
+  log: () ->
+    if App.Config.hasParam('debug') then console.log arguments

@@ -41,11 +41,11 @@ gulp.task('slim', function () {
   return gulp.src([
       'app/slim/header.slim',
       'app/slim/sidebar/header.slim',
-      'app/slim/sidebar/history.slim',
+      'app/slim/sidebar/bot/actions.slim',
       'app/slim/sidebar/footer.slim',
-      'app/slim/main-wrap.slim',
-      'app/slim/components/requester.slim',
+      'app/slim/bot/swimlanes.slim',
       'app/slim/templates.slim',
+      'app/slim/modals.slim',
       'app/slim/footer.slim',
     ])
     .pipe(concat('index.html'))
@@ -64,14 +64,24 @@ gulp.task('watch', function () {
 });
 
 /**
- * Move vendor files
+ * Move vendor scripts
  */
-gulp.task('vendor', function () {
+gulp.task('vendor-scripts', function () {
   return gulp.src([
       'node_modules/guid/guid.js'
     ])
     .pipe(uglify())
-    .pipe(gulp.dest('public/js/vendor'));
+    .pipe(gulp.dest('public/js/vendor'))
+});
+
+/**
+ * Move vendor styles
+ */
+gulp.task('vendor-styles', function () {
+  return gulp.src([
+      'node_modules/dragula/dist/dragula.min.css'
+    ])
+    .pipe(gulp.dest('public/css/vendor'));
 });
 
 /**
@@ -96,5 +106,5 @@ gulp.task('serve', function () {
 /**
  * Command Line Tasks
  */
-gulp.task('default', ['vendor', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
-gulp.task('build', ['vendor', 'assets', 'less', 'scripts', 'slim']);
+gulp.task('default', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
+gulp.task('build', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim']);

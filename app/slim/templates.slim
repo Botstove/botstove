@@ -1,0 +1,15 @@
+    .hidden
+      #template-bot-action
+        a.btn.btn-primary.btn-bot-action
+          i class="fa fa-<%- icon %>"
+          |<%- title %>
+          
+      table
+        tbody#template-swimlane-action
+          tr
+            td.bot-swimlane-input 
+              button.btn.btn-link Setup inputs
+            td.bot-swimlane-action
+              button.btn.btn-link <%- description %>
+            td.bot-swimlane-output
+              '
