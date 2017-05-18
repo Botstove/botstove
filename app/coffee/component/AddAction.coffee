@@ -32,7 +32,9 @@ App.define 'App.component.AddAction',
   ###
   generateModal: (controller) ->
     @getModal().addClass 'active'
-    @getForm().html ''
+    @getForm()
+      .data 'values', {}
+      .html ''
     @generateInput controller.inputs, @getForm()
 
   ###*
@@ -43,12 +45,18 @@ App.define 'App.component.AddAction',
   ###
   generateInput: (inputs, group) ->
     me = this
+    $form = @getForm()
+    values = if $form.data 'values' then $form.data 'values' else {}
 
     _.each inputs, (input) ->
+      if input.name
+        values[input.name] = []
+        $form.data 'values', values
+
       if input.type == 'group'
-        $fieldset = $('<fieldset />')
+        $fieldset = $ '<fieldset />'
         me.generateInput input.fields, $fieldset.appendTo(group)
-        $fieldset.wrap('<div class="repeater-group" />')
+        $fieldset.wrap '<div class="repeater-group" />'
 
       parent = $('<div class="form-group" />').appendTo group
       guid = App.Guid.raw()
@@ -65,18 +73,23 @@ App.define 'App.component.AddAction',
             type: input.type
             id: guid
             class: 'form-input'
+            name: input.name
           ).appendTo parent
 
         when 'checkbox'
-          $('<label id="' + guid + '" class="form-switch"><input type="checkbox" id="' + guid + '"><i class="form-icon"></i> ' + input.label + '</label>').appendTo(parent)
+          $("<label id=#{guid} class=form-switch><input name=#{input.name} type=checkbox id=#{guid}><i class=form-icon></i> #{input.label}</label>")
+          .appendTo parent
 
         when 'repeater'
           label = input.label or 'Add another'
-          $('<button class="btn btn-primary btn-sm float-right repeater">' + label + '</button>')
+          $("<button class='btn btn-primary btn-sm float-right repeater'>#{label}</button>")
           .appendTo group
 
-          $('<button class="btn btn btn-sm btn-error float-right repeater-deleter push-right">Remove</button>')
+          $("<button class='btn btn-sm btn-error float-right repeater-deleter push-right'>Remove</button>")
           .appendTo group
 
+  ###*
+   * Shows the popup
+  ###
   showSelector: () ->
     @getPopoverButton().focus()

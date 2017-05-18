@@ -4,6 +4,7 @@
 App.define 'App.component.modal.ActionInputs',
   refs:
     view: '#modal-bot-inputs'
+    form: '> .modal-body .content'
     remove:
       ref: '.repeater-deleter'
       click: 'removeGroup'
@@ -13,6 +14,11 @@ App.define 'App.component.modal.ActionInputs',
     submit:
       ref: '> .modal-footer .btn-primary'
       click: 'save'
+
+  ###*
+   * Stores a list of name: [values...] for the form
+  ###
+  values: {}
 
   ###*
    * Repeats the group of inputs
@@ -32,3 +38,17 @@ App.define 'App.component.modal.ActionInputs',
   ###
   save: () ->
     @getSubmit().addClass 'loading'
+    console.log @getValues()
+
+  ###*
+   * Gets the values using the .inputs
+  ###
+  getValues: () ->
+    me = this
+    values = @getForm().data('values')
+
+    _.each values, (value, key) ->
+      me.getForm().find("[name=#{key}]").each (el) ->
+        values[key].push $(this).val()
+
+    return values
