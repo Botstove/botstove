@@ -155,4 +155,4 @@ App =
    * Console logger, used when ?debug flag is used
   ###
   log: () ->
-    console.log arguments
+    if App.Config.hasParam('debug') then console.log arguments
