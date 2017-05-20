@@ -10,10 +10,10 @@ App.define 'App.component.modal.ActionInputs',
       change: 'setCheckboxValue'
     form: '> .modal-body .content'
     remove:
-      ref: '.repeater-deleter'
+      ref: '> .repeater-deleter'
       click: 'removeGroup'
     repeater:
-      ref: '.repeater'
+      ref: '> .repeater'
       click: 'repeatGroup'
     submit:
       ref: '> .modal-footer .btn-primary'

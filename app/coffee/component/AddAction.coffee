@@ -15,6 +15,7 @@ App.define 'App.component.AddAction',
     formSubmit: '#modal-bot-inputs .modal-footer .btn-primary'
     modal: '#modal-bot-inputs'
     popoverButton: '#popover-add-action > button'
+    repeaterGroups: '#modal-bot-inputs .repeater-group'
 
   ###*
    * Adds an action to the users bot
@@ -44,12 +45,12 @@ App.define 'App.component.AddAction',
       .html ''
     @getFormSubmit().removeClass 'loading'
     @generateInput controller.inputs, @getForm()
+    App.Util.makeDraggable @getRepeaterGroups()
 
   ###*
    * Loops through and generates each input element
    * @param  {OBJ} inputs The list of inputs to generate
    * @param  {ELM} parent The group to nest the elements inside of
-   * @return {STR} The combined HTML
   ###
   generateInput: (inputs, group) ->
     me = this
