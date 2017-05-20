@@ -75,16 +75,6 @@ gulp.task('vendor-scripts', function () {
 });
 
 /**
- * Move vendor styles
- */
-gulp.task('vendor-styles', function () {
-  return gulp.src([
-      'node_modules/dragula/dist/dragula.min.css'
-    ])
-    .pipe(gulp.dest('public/css/vendor'));
-});
-
-/**
  * Move assets
  */
 gulp.task('assets', function () {
@@ -106,5 +96,5 @@ gulp.task('serve', function () {
 /**
  * Command Line Tasks
  */
-gulp.task('default', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
-gulp.task('build', ['vendor-scripts', 'vendor-styles', 'assets', 'less', 'scripts', 'slim']);
+gulp.task('default', ['vendor-scripts', 'assets', 'less', 'scripts', 'slim', 'watch', 'serve']);
+gulp.task('build', ['vendor-scripts', 'assets', 'less', 'scripts', 'slim']);

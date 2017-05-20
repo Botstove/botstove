@@ -9,10 +9,12 @@ Bot.define 'Bot.action.Goto',
       type: 'group'
       fields: [
         {
+          name: 'url'
           type: 'text'
           label: 'URL'
         }
         {
+          name: 'newTab'
           type: 'checkbox'
           label: 'New Tab?'
         }

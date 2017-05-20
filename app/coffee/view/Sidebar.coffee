@@ -18,7 +18,6 @@ App.define 'App.view.Sidebar',
   toggleSidebar: () ->
     @getView().toggleClass 'active'
     @getMask().toggleClass 'active'
-    return
 
   ###*
    * Closes the sidebar
@@ -26,4 +25,3 @@ App.define 'App.view.Sidebar',
   closeSidebar: () ->
     @getView().removeClass 'active'
     @getMask().removeClass 'active'
-    return
