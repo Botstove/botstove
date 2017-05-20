@@ -13,6 +13,7 @@ App.define 'App.component.AddAction',
     form: '#modal-bot-inputs .modal-body .content'
     modal: '#modal-bot-inputs'
     popoverButton: '#popover-add-action > button'
+    repeaterGroups: '#modal-bot-inputs .repeater-group'
 
   ###*
    * Adds an action to the users bot
@@ -26,8 +27,6 @@ App.define 'App.component.AddAction',
     .find '.bot-swimlane-input'
     .click _.bind(@generateModal, this, controller)
 
-    return
-
   ###*
    * Generates the modal based on whats in controller.action
    * @param  {STR} controller The calling controller
@@ -36,14 +35,12 @@ App.define 'App.component.AddAction',
     @getModal().addClass 'active'
     @getForm().html ''
     @generateInput controller.inputs, @getForm()
-
-    return
+    App.Util.makeDraggable @getRepeaterGroups()
 
   ###*
    * Loops through and generates each input element
    * @param  {OBJ} inputs The list of inputs to generate
    * @param  {ELM} parent The group to nest the elements inside of
-   * @return {STR} The combined HTML
   ###
   generateInput: (inputs, group) ->
     me = this
@@ -53,7 +50,6 @@ App.define 'App.component.AddAction',
         $fieldset = $('<fieldset />')
         me.generateInput input.fields, $fieldset.appendTo(group)
         $fieldset.wrap('<div class="repeater-group" />')
-        return
 
       parent = $('<div class="form-group" />').appendTo group
       guid = App.Guid.raw()
@@ -82,7 +78,6 @@ App.define 'App.component.AddAction',
 
           $('<button class="btn btn btn-sm btn-error float-right repeater-deleter push-right">Remove</button>')
           .appendTo group
-    return
 
   showSelector: () ->
     @getPopoverButton().focus()

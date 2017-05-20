@@ -5,10 +5,10 @@ App.define 'App.component.modal.ActionInputs',
   refs:
     view: '#modal-bot-inputs'
     remove:
-      ref: '.repeater-deleter'
+      ref: '> .repeater-deleter'
       click: 'removeGroup'
     repeater:
-      ref: '.repeater'
+      ref: '> .repeater'
       click: 'repeatGroup'
     submit:
       ref: '> .modal-footer .btn-primary'
