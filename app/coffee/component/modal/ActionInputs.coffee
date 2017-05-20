@@ -43,7 +43,7 @@ App.define 'App.component.modal.ActionInputs',
   save: () ->
     $pre = @getActiveLane().children('pre')
     jsonString = JSON.stringify(@getValues(), null, 2)
-    App.table 'Saving action inputs', @getForm().data('values')
+    App.table 'Saving action inputs...', @getForm().data('values')
 
     if $pre.length
       $pre.text jsonString
