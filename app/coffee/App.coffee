@@ -112,7 +112,7 @@ App =
       controller = _.get window, className
       macros = controller.macros
 
-      _.each macros, (action, macro) ->
+      _.each macros, (macro, action) ->
         Mousetrap.bind macro, _.bind(controller[action], controller)
 
   ###*
@@ -156,3 +156,5 @@ App =
   ###
   log: () ->
     if App.Config.hasParam('debug') then console.log arguments
+  table: () ->
+    if App.Config.hasParam('debug') then console.table arguments

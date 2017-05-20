@@ -21,5 +21,3 @@ App.define 'App.component.Tab',
     panels = $ '[data-tab-group=' + group + ']'
     panels.find('[data-tab-panel]').removeClass 'active'
     $('[data-tab-panel=' + target + ']').addClass 'active'
-
-    return
