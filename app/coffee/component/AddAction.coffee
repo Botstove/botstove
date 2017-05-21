@@ -39,13 +39,14 @@ App.define 'App.component.AddAction',
     @getActiveLanes().removeClass 'active'
     $button.addClass 'active'
 
-    @getModal().addClass 'active'
     @getForm()
       .data 'values', {}
       .html ''
     @getFormSubmit().removeClass 'loading'
     @generateInput controller.inputs, @getForm()
     App.Util.makeDraggable @getRepeaterGroups()
+    @getModal().addClass 'active'
+      .find('input').first().focus()
 
   ###*
    * Loops through and generates each input element
@@ -81,7 +82,7 @@ App.define 'App.component.AddAction',
           $('<input />',
             type: input.type
             id: guid
-            class: 'form-input'
+            class: 'form-input mousetrap'
             name: input.name
           ).appendTo parent
 
