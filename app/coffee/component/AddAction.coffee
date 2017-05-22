@@ -60,6 +60,7 @@ App.define 'App.component.AddAction',
     me = this
     $form = @getForm()
     oldValues = $form.data 'oldValues'
+    if (!oldValues) then oldValues = {}
 
     # Create each input
     _.each inputs, (input) ->
@@ -69,46 +70,54 @@ App.define 'App.component.AddAction',
         values[input.name] = []
         $form.data 'values', values
 
-      # Create a group wrap
-      if input.type == 'group'
-        $fieldset = $ "<fieldset />"
-        me.generateInput.call me, input.fields, $fieldset.appendTo group
-        $fieldset.wrap '<div class="repeater-group" />'
-        return
+      values = if !_.isEmpty oldValues[input.name] then oldValues[input.name] else ['']
 
-      ## New GUID
-      parent = $('<div class="form-group" />').appendTo group
-      guid = App.Guid.raw()
+      # Loop through and create one group for each value
+      for i in [0 .. values.length - 1]
+        # Create a group wrap
+        if input.type == 'group'
+          $fieldset = $ "<fieldset />"
+          me.generateInput.call me, input.fields, $fieldset.appendTo group
+          $fieldset.wrap '<div class="repeater-group" />'
+          return
 
-      # Create label
-      if input.label and input.type != 'checkbox'
-        $('<label/>',
-          for: guid
-          class: 'form-label'
-        ).text(input.label).appendTo parent
+        ## New GUID and default value
+        parent = $('<div class="form-group" />').appendTo group
+        guid = App.Guid.raw()
+        value = values[i]
 
-      # Create field
-      switch input.type
-        when 'text'
-          $('<input />',
-            type: input.type
-            id: guid
-            class: 'form-input mousetrap'
-            name: input.name
-          ).appendTo parent
+        # Create label
+        if input.label and input.type != 'checkbox'
+          $('<label/>',
+            for: guid
+            class: 'form-label'
+          ).text(input.label).appendTo parent
 
-        when 'checkbox'
-          onVal = if input.onValue then input.onValue else 1
-          offVal = if input.offValue then input.offValue else 0
-          $("<label id=#{guid} class=form-switch><input data-on-value='#{onVal}' data-off-value='#{offVal}' name=#{input.name} type=checkbox id=#{guid} value=#{offVal}><i class=form-icon></i> #{input.label}</label>")
-          .appendTo parent
+        # Create field
+        switch input.type
+          when 'text'
+            $('<input />',
+              type: input.type
+              id: guid
+              class: 'form-input mousetrap'
+              name: input.name
+              value: value
+            ).appendTo parent
 
-        when 'repeater'
-          label = input.label or 'Add another'
-          $("<button class='btn btn-primary btn-sm float-right repeater'>#{label}</button>")
-          .appendTo parent
-          $("<button class='btn btn-sm btn-error float-right repeater-deleter push-right'>Remove</button>")
-          .appendTo parent
+          when 'checkbox'
+            onVal = if input.onValue then input.onValue else 1
+            offVal = if input.offValue then input.offValue else 0
+            checked = if `onVal == value` then 'checked=checked' else ''
+
+            $("<label id=#{guid} class=form-switch><input data-on-value='#{onVal}' data-off-value='#{offVal}' name=#{input.name} type=checkbox id=#{guid} value=#{offVal} #{checked}><i class=form-icon></i> #{input.label}</label>")
+            .appendTo parent
+
+          when 'repeater'
+            label = input.label or 'Add another'
+            $("<button class='btn btn-primary btn-sm float-right repeater'>#{label}</button>")
+            .appendTo parent
+            $("<button class='btn btn-sm btn-error float-right repeater-deleter push-right'>Remove</button>")
+            .appendTo parent
 
   ###*
    * Shows the popup
