@@ -7,7 +7,7 @@ App.define 'App.component.AddAction',
 
   refs:
     view: '#bot-actions'
-    activeLanes: '#bot-swimlane-actions .active.bot-swimlane-input'
+    activeLane: '#bot-swimlane-actions .active.bot-swimlane-input'
     button:
       ref: '> .btn-bot-action'
       click: 'addAction'
@@ -25,8 +25,8 @@ App.define 'App.component.AddAction',
     controller = _.get window, $(button).data('action')
 
     $button = $ _.template(App.Decode.slim($('#template-swimlane-action').html()))(controller.action)
-    .appendTo('#bot-swimlane-actions')
-    .find '.bot-swimlane-input'
+      .appendTo('#bot-swimlane-actions')
+      .find '.bot-swimlane-input'
 
     $button.click _.bind(@generateModal, this, controller, $button)
 
@@ -36,14 +36,17 @@ App.define 'App.component.AddAction',
    * @param  {$EL} $button    The calling button
   ###
   generateModal: (controller, $button) ->
-    @getActiveLanes().removeClass 'active'
+    @getActiveLane().removeClass 'active'
     $button.addClass 'active'
+    values = @getForm().data 'values'
 
     @getForm()
-      .data 'values', {}
       .html ''
+      .data 'oldValues', @getForm().data 'values'
+      .data 'values', {}
     @getFormSubmit().removeClass 'loading'
     @generateInput controller.inputs, @getForm()
+
     App.Util.makeDraggable @getRepeaterGroups()
     @getModal().addClass 'active'
       .find('input').first().focus()
@@ -56,27 +59,35 @@ App.define 'App.component.AddAction',
   generateInput: (inputs, group) ->
     me = this
     $form = @getForm()
-    values = if $form.data 'values' then $form.data 'values' else {}
+    oldValues = $form.data 'oldValues'
 
+    # Create each input
     _.each inputs, (input) ->
+      # Setup value map (for use in App.component.modal.ActionsInputs)
       if input.name
+        values = $form.data 'values'
         values[input.name] = []
         $form.data 'values', values
 
+      # Create a group wrap
       if input.type == 'group'
-        $fieldset = $ '<fieldset />'
-        me.generateInput input.fields, $fieldset.appendTo(group)
+        $fieldset = $ "<fieldset />"
+        me.generateInput.call me, input.fields, $fieldset.appendTo group
         $fieldset.wrap '<div class="repeater-group" />'
+        return
 
+      ## New GUID
       parent = $('<div class="form-group" />').appendTo group
       guid = App.Guid.raw()
 
+      # Create label
       if input.label and input.type != 'checkbox'
         $('<label/>',
           for: guid
           class: 'form-label'
         ).text(input.label).appendTo parent
 
+      # Create field
       switch input.type
         when 'text'
           $('<input />',
@@ -95,10 +106,9 @@ App.define 'App.component.AddAction',
         when 'repeater'
           label = input.label or 'Add another'
           $("<button class='btn btn-primary btn-sm float-right repeater'>#{label}</button>")
-          .appendTo group
-
+          .appendTo parent
           $("<button class='btn btn-sm btn-error float-right repeater-deleter push-right'>Remove</button>")
-          .appendTo group
+          .appendTo parent
 
   ###*
    * Shows the popup

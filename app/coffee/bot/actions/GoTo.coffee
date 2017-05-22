@@ -6,6 +6,10 @@ Bot.define 'Bot.action.Goto',
 
   inputs: [
     {
+      name: 'name'
+      type: 'text'
+    }
+    {
       type: 'group'
       fields: [
         {

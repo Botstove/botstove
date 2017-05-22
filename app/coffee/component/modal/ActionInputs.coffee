@@ -20,11 +20,6 @@ App.define 'App.component.modal.ActionInputs',
       click: 'save'
 
   ###*
-   * Stores a list of name: [values...] for the form
-  ###
-  values: {}
-
-  ###*
    * Repeats the group of inputs
   ###
   repeatGroup: (button) ->
@@ -51,7 +46,6 @@ App.define 'App.component.modal.ActionInputs',
     else
       @getActiveLane().prepend "<pre class='bot-swimlane-input-values'>#{jsonString}</pre>"
 
-    @getActiveLane().data 'inputs', values
     @getSubmit().addClass 'loading'
     @getSubmit().removeClass 'loading'
     @getView().removeClass 'active'
