@@ -38,11 +38,10 @@ App.define 'App.component.AddAction',
   generateModal: (controller, $button) ->
     @getActiveLane().removeClass 'active'
     $button.addClass 'active'
-    values = @getForm().data 'values'
 
     @getForm()
       .html ''
-      .data 'oldValues', @getForm().data 'values'
+      .data 'oldValues', $button.closest('.bot-swimlane-input').data 'inputs'
       .data 'values', {}
     @getFormSubmit().removeClass 'loading'
     @generateInput controller.inputs, @getForm()

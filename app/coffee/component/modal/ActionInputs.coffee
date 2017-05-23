@@ -49,6 +49,7 @@ App.define 'App.component.modal.ActionInputs',
     @getSubmit().addClass 'loading'
     @getSubmit().removeClass 'loading'
     @getView().removeClass 'active'
+    @getActiveLane().data 'inputs', values
 
   ###*
    * Gets the values using the .inputs
@@ -60,7 +61,12 @@ App.define 'App.component.modal.ActionInputs',
     _.each values, (value, key) ->
       values[key] = []
       me.getForm().find("[name=#{key}]").each (el) ->
-        values[key].push $(this).val()
+        $field = $(this)
+        switch $field.attr 'type'
+          when 'text'
+            values[key].push $field.val()
+          when 'checkbox'
+            values[key].push(if $field.prop 'checked' then $field.data 'on-value' else $field.data 'off-value')
 
     values
 
