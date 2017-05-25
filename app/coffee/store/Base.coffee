@@ -5,27 +5,36 @@ App.define 'App.store.Base',
   ###*
    * Contains the set of records
   ###
-  record: {}
+  records: []
 
   ###*
-   * Creates a new record at the specified root
+   * Creates a new record with defaults
+   * @param  {OBJ} defaults List of defaults
+   * @return {OBJ}          The created record
   ###
-  new: (field, defaults) ->
-    if field
-      root = _.get @schema, field
-    else
-      root = @schema
+  new: (defaults) ->
+    # Save to store controller
+    record = @setDefaults @schema, defaults
+    @records = records
 
-    @setDefaults root, defaults
+    # Save to localStorage
+    records = JSON.parse localStorage.getItem @storeId
+    if !records then records = []
+    records.push record
+    localStorage.setItem @storeId, JSON.stringify(records)
+
+    return record
 
   ###*
    * Go through and set default values
+   * @param {OBJ} data     The dataset to [recursively] default through
+   * @param {OBJ} data with defaults
   ###
-  setDefaults: (root, defaults = {}) ->
+  setDefaults: (data, defaults = {}) ->
     me = this
     values = {}
 
-    _.each root, (val, key) ->
+    _.each data, (val, key) ->
       if !_.has defaults, key
         defaults[key] = val
 
@@ -40,3 +49,17 @@ App.define 'App.store.Base',
       values[key] = val
 
     return values
+
+  ###*
+   * Returns all the records
+  ###
+  getAll: () ->
+    @records
+
+  ###*
+   * Loads localstorage data into memory
+  ###
+  loadLocalStorage: () ->
+    records = JSON.parse localStorage.getItem @storeId
+    if !records then records = {}
+    @records = records
