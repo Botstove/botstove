@@ -2,5 +2,5 @@
  * Sets up dragula
 ###
 App.define 'App.setup.Dragula',
-  init: () ->
+  init: ->
     return

@@ -94,7 +94,7 @@ App =
       store = controller.store
 
       _.each store, (getter, ref) ->
-        controller['get' + _.capitalize(ref) + 'Store'] = () ->
+        controller['get' + _.capitalize(ref) + 'Store'] = ->
           _.get window, getter
 
     ###*
@@ -141,13 +141,13 @@ App =
     ###*
      * Returns a GUID
     ###
-    raw: () ->
+    raw: ->
       Guid.raw()
 
   ###*
    * Console logger, used when ?debug flag is used
   ###
-  log: () ->
+  log: ->
     if App.Config.hasParam 'debug' then console.log arguments
   table: (message) ->
     if App.Config.hasParam 'debug'

@@ -13,5 +13,5 @@ App.define 'App.component.Modal',
   ###*
    * Closes the modal
   ###
-  closeModal: () ->
+  closeModal: ->
     @getView().removeClass 'active'

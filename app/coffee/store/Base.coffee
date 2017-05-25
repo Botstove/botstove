@@ -53,13 +53,13 @@ App.define 'App.store.Base',
   ###*
    * Returns all the records
   ###
-  getAll: () ->
+  getAll: ->
     @records
 
   ###*
    * Loads localstorage data into memory
   ###
-  loadLocalStorage: () ->
+  loadLocalStorage: ->
     records = JSON.parse localStorage.getItem @storeId
     if !records then records = {}
     @records = records

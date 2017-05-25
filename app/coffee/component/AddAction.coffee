@@ -114,13 +114,13 @@ App.define 'App.component.AddAction',
   ###*
    * Shows the popup
   ###
-  showSelector: () ->
+  showSelector: ->
     @getPopoverButton().focus()
 
   ###*
    * Sets the forms values, creating groups as needed
   ###
-  setValues: () ->
+  setValues: ->
     me = this
     oldValues = @getForm().data 'oldValues'
 

@@ -15,13 +15,13 @@ App.define 'App.view.Sidebar',
   ###*
    * Toggles the sidebar
   ###
-  toggleSidebar: () ->
+  toggleSidebar: ->
     @getView().toggleClass 'active'
     @getMask().toggleClass 'active'
 
   ###*
    * Closes the sidebar
   ###
-  closeSidebar: () ->
+  closeSidebar: ->
     @getView().removeClass 'active'
     @getMask().removeClass 'active'

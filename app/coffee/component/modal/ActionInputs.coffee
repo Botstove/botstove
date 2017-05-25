@@ -33,9 +33,9 @@ App.define 'App.component.modal.ActionInputs',
     $(button).closest('fieldset').remove()
 
   ###*
-   * Saves the action and adds it to the actions array in local/remote
+   * Saves the data to the DOM
   ###
-  save: () ->
+  save: ->
     $pre = @getActiveLane().children('pre')
     values = @getValues()
     jsonString = JSON.stringify(values, null, 2)
@@ -49,11 +49,13 @@ App.define 'App.component.modal.ActionInputs',
     @getSubmit().removeClass 'loading'
     @getView().removeClass 'active'
     @getActiveLane().data 'inputs', values
+    App.trigger 'saveBot'
 
   ###*
    * Gets the values using the .inputs
+   * @return {ARR} The values
   ###
-  getValues: () ->
+  getValues: ->
     me = this
     values = @getForm().data 'values'
 
@@ -67,7 +69,7 @@ App.define 'App.component.modal.ActionInputs',
           when 'checkbox'
             values[key].push(if $field.prop 'checked' then $field.data 'on-value' else $field.data 'off-value')
 
-    values
+    return values
 
   ###*
    * Sets the checkbox value when clicked

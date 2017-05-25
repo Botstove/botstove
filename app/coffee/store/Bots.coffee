@@ -6,7 +6,7 @@ App.define 'App.store.Bots',
   storeId: 'Bots'
   schema:
     id: App.Guid.raw
-    action: {}
+    actions: []
 
   init: ->
     @loadLocalStorage()

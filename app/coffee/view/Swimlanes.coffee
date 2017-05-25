@@ -2,7 +2,10 @@
  * Controls the swimlanes
 ###
 App.define 'App.component.Swimlanes',
-  listen: ['botStoreReady']
+  listen: [
+    'botStoreReady'
+    'saveBot'
+  ]
 
   refs:
     view: '#bot-swimlane-actions'
@@ -18,6 +21,14 @@ App.define 'App.component.Swimlanes',
   init: ->
     App.Util.makeDraggable @getView()
 
+  ###*
+   * Loads the bot
+  ###
   botStoreReady: ->
     @currentBot = @getBotStore().getMostRecentBot()
     console.log @currentBot
+
+  ###*
+   * Saves each swimlane
+  ###
+  saveBot: ->
