@@ -46,7 +46,6 @@ App.define 'App.component.modal.ActionInputs',
     else
       @getActiveLane().prepend "<pre class='bot-swimlane-input-values'>#{jsonString}</pre>"
 
-    @getSubmit().addClass 'loading'
     @getSubmit().removeClass 'loading'
     @getView().removeClass 'active'
     @getActiveLane().data 'inputs', values

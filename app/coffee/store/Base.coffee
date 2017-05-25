@@ -5,16 +5,38 @@ App.define 'App.store.Base',
   ###*
    * Contains the set of records
   ###
-  records: {}
+  record: {}
 
   ###*
-   * Creates a new record
-   * @param  {OBJ} defaults List of [deep] defaults
-   * @return {OBJ}          The newly created record
+   * Creates a new record at the specified root
   ###
-  new: (defaults) ->
-    defaults = if defaults then defaults else {}
+  new: (field, defaults) ->
+    if field
+      root = _.get @schema, field
+    else
+      root = @schema
 
-    id = App.Guid.raw()
-    @records[id] = _.defaults defaults,
-      id: id
+    @setDefaults root, defaults
+
+  ###*
+   * Go through and set default values
+  ###
+  setDefaults: (root, defaults = {}) ->
+    me = this
+    values = {}
+
+    _.each root, (val, key) ->
+      if !_.has defaults, key
+        defaults[key] = val
+
+      if _.isFunction val
+        val = val()
+      else if _.isObject val
+        val = me.setDefaults val, defaults[key]
+
+      if !_.isEmpty(defaults[key])
+        val = defaults[key]
+
+      values[key] = val
+
+    return values

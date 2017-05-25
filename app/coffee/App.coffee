@@ -86,23 +86,16 @@ App =
           _.template(App.Decode.slim($(template).html())) data
 
     ###*
-     * Sets up stores, autoloading them and firing events
+     * Sets up stores
      * @param  {STR} className The classname to check
     ###
     stores: (className) ->
       controller = _.get window, className
       store = controller.store
 
-      if store
-        if _.isString store
-          store =
-            id: store
-            event: null
-
-        cache = controller.initCache()
-
-        if store.event
-          App.trigger store.event, cache, true
+      _.each store, (getter, ref) ->
+        controller['get' + _.capitalize(ref) + 'Store'] = () ->
+          _.get window, getter
 
     ###*
      * Keyboard Macros
